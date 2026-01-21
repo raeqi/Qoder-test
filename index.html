@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Wheel - Let Fate Decide!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎡 Decision Wheel</h1>
+            <p class="subtitle">Can't decide? Let fate choose for you!</p>
+        </header>
+
+        <main>
+            <!-- Winner Display -->
+            <div id="winnerDisplay" class="winner-display hidden">
+                <div class="winner-content">
+                    <h2>🎉 Winner! 🎉</h2>
+                    <p id="winnerText" class="winner-text"></p>
+                    <button onclick="closeWinner()" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
+
+            <!-- Wheel Container -->
+            <div class="wheel-container">
+                <div class="wheel-pointer">▼</div>
+                <canvas id="wheelCanvas" width="400" height="400"></canvas>
+                <button id="spinButton" class="spin-button" onclick="spinWheel()">
+                    <span>SPIN!</span>
+                </button>
+            </div>
+
+            <!-- Options Input Section -->
+            <div class="options-section">
+                <h3>Add Your Options (2-10)</h3>
+                <div class="input-container">
+                    <input
+                        type="text"
+                        id="optionInput"
+                        placeholder="Enter an option (e.g., Pizza, Burger, Sushi)"
+                        maxlength="30"
+                        onkeypress="handleEnterKey(event)"
+                    >
+                    <button onclick="addOption()" class="btn btn-primary">Add</button>
+                </div>
+
+                <div id="optionsList" class="options-list"></div>
+
+                <div class="options-counter">
+                    Options: <span id="optionCount">0</span>/10
+                </div>
+            </div>
+
+            <!-- Saved Wheels Section -->
+            <div class="saved-wheels-section">
+                <h3>📌 Saved Wheels</h3>
+                <div class="save-wheel-container">
+                    <input
+                        type="text"
+                        id="wheelNameInput"
+                        placeholder="Name your wheel (e.g., Restaurants)"
+                        maxlength="20"
+                    >
+                    <button onclick="saveWheel()" class="btn btn-success">Save Current Wheel</button>
+                </div>
+                <div id="savedWheelsList" class="saved-wheels-list"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Made with ❤️ for the indecisive</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
