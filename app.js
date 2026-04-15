@@ -136,10 +136,17 @@ function updateOptionsDisplay() {
     options.forEach((option, index) => {
         const div = document.createElement('div');
         div.className = 'option-item';
-        div.innerHTML = `
-            <span class="option-text">${option}</span>
-            <button onclick="removeOption(${index})" class="btn btn-danger">Remove</button>
-        `;
+        const optionText = document.createElement('span');
+        optionText.className = 'option-text';
+        optionText.textContent = option;
+
+        const removeButton = document.createElement('button');
+        removeButton.className = 'btn btn-danger';
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', () => removeOption(index));
+
+        div.appendChild(optionText);
+        div.appendChild(removeButton);
         optionsList.appendChild(div);
     });
 
@@ -337,21 +344,49 @@ function loadSavedWheels() {
     savedWheelsList.innerHTML = '';
 
     if (savedWheels.length === 0) {
-        savedWheelsList.innerHTML = '<p style="color: #999; text-align: center;">No saved wheels yet</p>';
+        const emptyMessage = document.createElement('p');
+        emptyMessage.style.color = '#999';
+        emptyMessage.style.textAlign = 'center';
+        emptyMessage.textContent = 'No saved wheels yet';
+        savedWheelsList.appendChild(emptyMessage);
         return;
     }
 
     savedWheels.forEach((wheel, index) => {
         const div = document.createElement('div');
         div.className = 'saved-wheel-item';
-        div.innerHTML = `
-            <div class="saved-wheel-name">${wheel.name}</div>
-            <div class="saved-wheel-options">${wheel.options.join(', ')}</div>
-            <div class="saved-wheel-actions">
-                <button onclick="loadWheel(${index})" class="btn" style="background: rgba(255,255,255,0.3); border: 1px solid white; color: white; padding: 5px 15px; font-size: 0.85em;">Load</button>
-                <button onclick="deleteWheel(${index})" class="delete-wheel-btn">Delete</button>
-            </div>
-        `;
+
+        const name = document.createElement('div');
+        name.className = 'saved-wheel-name';
+        name.textContent = wheel.name;
+
+        const wheelOptions = document.createElement('div');
+        wheelOptions.className = 'saved-wheel-options';
+        wheelOptions.textContent = wheel.options.join(', ');
+
+        const actions = document.createElement('div');
+        actions.className = 'saved-wheel-actions';
+
+        const loadButton = document.createElement('button');
+        loadButton.className = 'btn';
+        loadButton.style.background = 'rgba(255,255,255,0.3)';
+        loadButton.style.border = '1px solid white';
+        loadButton.style.color = 'white';
+        loadButton.style.padding = '5px 15px';
+        loadButton.style.fontSize = '0.85em';
+        loadButton.textContent = 'Load';
+        loadButton.addEventListener('click', () => loadWheel(index));
+
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-wheel-btn';
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => deleteWheel(index));
+
+        actions.appendChild(loadButton);
+        actions.appendChild(deleteButton);
+        div.appendChild(name);
+        div.appendChild(wheelOptions);
+        div.appendChild(actions);
         savedWheelsList.appendChild(div);
     });
 }
