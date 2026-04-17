@@ -2,6 +2,7 @@
 let options = [];
 let isSpinning = false;
 let currentRotation = 0;
+const MIN_OPTIONS_TO_SPIN = 2;
 
 // Canvas setup
 const canvas = document.getElementById('wheelCanvas');
@@ -154,7 +155,7 @@ function updateOptionsDisplay() {
 
     // Update spin button state
     const spinButton = document.getElementById('spinButton');
-    spinButton.disabled = options.length < 2;
+    spinButton.disabled = options.length < MIN_OPTIONS_TO_SPIN;
 }
 
 // Draw wheel
@@ -214,7 +215,7 @@ function drawWheel() {
 
 // Spin wheel
 function spinWheel() {
-    if (isSpinning || options.length < 2) return;
+    if (isSpinning || options.length < MIN_OPTIONS_TO_SPIN) return;
 
     isSpinning = true;
     const spinButton = document.getElementById('spinButton');
@@ -294,7 +295,7 @@ function handleEnterKey(event) {
 
 // Save wheel
 function saveWheel() {
-    if (options.length < 2) {
+    if (options.length < MIN_OPTIONS_TO_SPIN) {
         alert('Add at least 2 options before saving!');
         return;
     }
